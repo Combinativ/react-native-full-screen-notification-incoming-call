@@ -97,7 +97,7 @@ public class IncomingCallActivity extends AppCompatActivity implements DefaultHa
       Fragment reactNativeFragment = new ReactFragment.Builder()
         .setComponentName(mainComponent)
         .setLaunchOptions(bundle)
-        .setFabricEnabled(false)
+        // .setFabricEnabled(false)
         .build();
 
       getSupportFragmentManager()
