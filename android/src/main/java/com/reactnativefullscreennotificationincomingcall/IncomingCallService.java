@@ -137,21 +137,36 @@ public class IncomingCallService extends Service {
     });
   }
 
+  // private void startForegroundWithNotification(Intent intent, Bitmap avatarBitmap) {
+  //   Notification notification;
+  //   try {
+  //     notification = buildNotification(getApplicationContext(), intent, avatarBitmap);
+  //   } catch (MalformedURLException e) {
+  //     throw new RuntimeException("Failed to build notification", e);
+  //   }
+
+  //   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+  //     startForeground(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_PHONE_CALL);
+  //   } else {
+  //     startForeground(1, notification);
+  //   }
+  // }
   private void startForegroundWithNotification(Intent intent, Bitmap avatarBitmap) {
-    Notification notification;
-    try {
-      notification = buildNotification(getApplicationContext(), intent, avatarBitmap);
-    } catch (MalformedURLException e) {
-      throw new RuntimeException("Failed to build notification", e);
-    }
+      Notification notification;
+      try {
+          notification = buildNotification(getApplicationContext(), intent, avatarBitmap);
+      } catch (MalformedURLException e) {
+          Log.e("ServiceTag", "Failed to build notification", e);
+          // Optionally, provide a fallback notification or handle the error gracefully
+          return;
+      }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      startForeground(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_PHONE_CALL);
-    } else {
-      startForeground(1, notification);
-    }
-  }
-
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+          startForeground(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_PHONE_CALL);
+      } else {
+          startForeground(1, notification);
+      }
+ }
   private PendingIntent onButtonNotificationClick(int id, String action, String eventName) {
     if (action == Constants.ACTION_PRESS_DECLINE_CALL) {
       Intent buttonIntent = new Intent();
